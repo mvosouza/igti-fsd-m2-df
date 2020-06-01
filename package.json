@@ -1,0 +1,16 @@
+{
+  "name": "grades-control-api",
+  "version": "1.0.0",
+  "description": "Grades management",
+  "main": ".\\src\\app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node .\\src\\app.js"
+  },
+  "keywords": [
+    "grades",
+    "management"
+  ],
+  "author": "Marcos Souza",
+  "license": "ISC"
+}
