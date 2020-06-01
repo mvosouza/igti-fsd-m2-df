@@ -1,13 +1,13 @@
 import express from 'express';
+import gradesRouter from './routes/grades.js';
 
 const port = 3000;
 const app = express();
 
 app.use(express.json());
 
-app.get('/grades', (req, res) => {
-  res.send('Recieved!');
-});
+//Routes
+app.use('/grades', gradesRouter);
 
 app.listen(port, () => {
   try {
