@@ -84,6 +84,32 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+//Item 05
+router.get('/note', async (req, res) => {
+  try {
+    const param = req.body;
+
+    if (!param.student || !param.subject) {
+      res
+        .status(400)
+        .send('The attributes student and subject are obligatory.');
+    }
+
+    const gradesFile = await readFileAsJson(filePath);
+    const totalNote = gradesFile.grades.reduce((agrr, curr) => {
+      if (param.student === curr.student && param.subject === curr.subject)
+        return agrr + curr.value;
+
+      return agrr + 0;
+    }, 0);
+
+    res.send({ total: totalNote });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: err.message });
+  }
+});
+
 //Item 04
 router.get('/:id', async (req, res) => {
   try {
