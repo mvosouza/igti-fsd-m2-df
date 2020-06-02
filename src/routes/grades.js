@@ -145,7 +145,10 @@ router.get('/best-grades', async (req, res) => {
     const grades = gradesFile.grades.filter(
       (grade) => grade.type === param.type && grade.subject === param.subject
     );
-    const result = grades.sort((a, b) => b.value - a.value).slice(0, 3);
+    const result = grades
+      .sort((a, b) => b.value - a.value)
+      .map((grade) => grade.value)
+      .slice(0, 3);
 
     res.send(result);
   } catch (err) {
