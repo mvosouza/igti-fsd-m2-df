@@ -110,6 +110,50 @@ router.get('/note', async (req, res) => {
   }
 });
 
+//Item 06
+router.get('/avg', async (req, res) => {
+  try {
+    const param = req.body;
+
+    if (!param.type || !param.subject) {
+      res.status(400).send('The attributes type and subject are obligatory.');
+    }
+
+    const gradesFile = await readFileAsJson(filePath);
+    const grades = gradesFile.grades.filter(
+      (grade) => grade.type === param.type && grade.subject === param.subject
+    );
+    const total = grades.reduce((aggr, curr) => aggr + curr.value, 0);
+    const avg = total / grades.length;
+    res.send({ avarage: avg });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: err.message });
+  }
+});
+
+//Item 07
+router.get('/best-grades', async (req, res) => {
+  try {
+    const param = req.body;
+
+    if (!param.type || !param.subject) {
+      res.status(400).send('The attributes type and subject are obligatory.');
+    }
+
+    const gradesFile = await readFileAsJson(filePath);
+    const grades = gradesFile.grades.filter(
+      (grade) => grade.type === param.type && grade.subject === param.subject
+    );
+    const result = grades.sort((a, b) => b.value - a.value).slice(0, 3);
+
+    res.send(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: err.message });
+  }
+});
+
 //Item 04
 router.get('/:id', async (req, res) => {
   try {
